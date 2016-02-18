@@ -1,0 +1,3710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="www.biscom.com" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="www.biscom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service to send faxes and check their statuses using the Biscom Fax Servers</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="www.biscom.com">
+      <s:element name="ShowThreadingModel">
+        <s:complexType />
+      </s:element>
+      <s:element name="ShowThreadingModelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ShowThreadingModelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WebServiceVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="WebServiceVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WebServiceVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetLegacyMode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="legacyMode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetLegacyModeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetLegacyModeResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultMessage">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Result" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detail" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:LOGENTRYTYPE" />
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LOGENTRYTYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="INFO" />
+          <s:enumeration value="WARNING" />
+          <s:enumeration value="ERROR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetLegacyMode">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLegacyModeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLegacyModeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogOn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogOnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogOnResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseSession">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReleaseSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReleaseSessionResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSenderInformation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="faxNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="voiceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSenderInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetSenderInformationResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="priority" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="resolution" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="coverpage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="memo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientCompany" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientVoice" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewFaxMessageResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecipient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="faxNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="voiceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecipientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRecipientResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecipientEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="faxNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="voiceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="coverpage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecipientExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRecipientExResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFaxResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastUniqueJobID">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLastUniqueJobIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastUniqueJobIDResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="folder" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sendFax" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveFaxResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="attname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachment" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddAttachmentResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAttachmentByUNC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="attname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAttachmentByUNCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddAttachmentByUNCResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusByUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusByUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusByUniqueIDResult" type="tns:MessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmitTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfAttempts" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagesTransmitted" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransferRate" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FallBack" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionStatus" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConnectTime" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CSI" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PortNumber" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalPages" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AttachmentCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RenderedImagePath" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Index" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignedID" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueJobID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSelected" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxStateFlags" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginAndGetMessageStatusByUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusByUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndGetMessageStatusByUniqueIDResult" type="tns:MessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusByIDTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusByIDTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusByIDTagResult" type="tns:MessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusByIDTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusByIDTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndGetMessageStatusByIDTagResult" type="tns:MessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesCount">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMessageStatusesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetMessageStatusesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginAndGetMessageStatusesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusesResult" type="tns:ArrayOfMessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageStatus" nillable="true" type="tns:MessageStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMessageStatusesEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusesExResult" type="tns:ArrayOfMessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndGetMessageStatusesResult" type="tns:ArrayOfMessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveMessageStatusbyUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveMessageStatusbyUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveMessageStatusbyUniqueIDResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndRemoveMessageStatusByUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndRemoveMessageStatusByUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndRemoveMessageStatusByUniqueIDResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessageByUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessageByUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingMessageByUniqueIDResult" type="tns:PendingMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PendingMessage">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignedID" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliveryTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoldValue" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Priority" type="tns:PRIORITY" />
+          <s:element minOccurs="1" maxOccurs="1" name="Attempts" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SenderName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSelected" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PreviewAllowed" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AuthorizeAllowed" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreviewPath" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSender" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsAuthorizor" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecipientIndex" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PRIORITY">
+        <s:restriction base="s:string">
+          <s:enumeration value="LOW" />
+          <s:enumeration value="NORMAL" />
+          <s:enumeration value="HIGH" />
+          <s:enumeration value="URGENT" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetPendingMessageByIDTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessageByIDTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingMessageByIDTagResult" type="tns:PendingMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessagesCount">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPendingMessagesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPendingMessagesCountResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingMessagesResult" type="tns:ArrayOfPendingMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPendingMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PendingMessage" nillable="true" type="tns:PendingMessage" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPendingMessagesEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingMessagesExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingMessagesExResult" type="tns:ArrayOfPendingMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessagesCount">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetReceivedMessagesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetReceivedMessagesCountResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="returnImagedata" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceivedMessagesResult" type="tns:ArrayOfReceivedMessageData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfReceivedMessageData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ReceivedMessageData" nillable="true" type="tns:ReceivedMessageData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReceivedMessageData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Metadata" type="tns:ReceivedMessageMetadata" />
+          <s:element minOccurs="0" maxOccurs="1" name="Imagedata" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReceivedMessageMetadata">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FaxIDInFolder" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReceiveTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompletionTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TSI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CallerID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfPages" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConnectTime" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileExtension" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReceivedMessages2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="returnImagedata" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="format" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessages2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceivedMessages2Result" type="tns:ArrayOfReceivedMessageData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessages3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="returnImagedata" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="sortColumn" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ascending" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="start" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="format" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessages3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceivedMessages3Result" type="tns:ArrayOfReceivedMessageData2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfReceivedMessageData2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ReceivedMessageData2" nillable="true" type="tns:ReceivedMessageData2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReceivedMessageData2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Metadata" type="tns:ReceivedMessageMetadata2" />
+          <s:element minOccurs="0" maxOccurs="1" name="Imagedata" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReceivedMessageMetadata2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FaxIDInFolder" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReceiveTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompletionTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TSI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CallerID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfPages" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConnectTime" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileExtension" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRead" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Annotations" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReceivedMessagesByIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxIDsInFolder" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReceivedMessagesByIDsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceivedMessagesByIDsResult" type="tns:ArrayOfReceivedMessageData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessagesByIDs2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxIDsInFolder" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="format" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceivedMessagesByIDs2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceivedMessagesByIDs2Result" type="tns:ArrayOfReceivedMessageData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveReceivedMessagesByIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxIDsInFolder" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveReceivedMessagesByIDsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveReceivedMessagesByIDsResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesByUniqueIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueIDs" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesByUniqueIDsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusesByUniqueIDsResult" type="tns:ArrayOfMessageStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageStatusesByMessageStatusQueries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="queries" type="tns:ArrayOfMessageStatusQuery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageStatusQuery">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageStatusQuery" nillable="true" type="tns:MessageStatusQuery" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageStatusQuery">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Index" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMessageStatusesByMessageStatusQueriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageStatusesByMessageStatusQueriesResult" type="tns:ArrayOfMessageStatusQueryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageStatusQueryResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageStatusQueryResult" nillable="true" type="tns:MessageStatusQueryResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageStatusQueryResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Query" type="tns:MessageStatusQuery" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:MessageStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginAndGetMessageStatusesByMessageStatusQueries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="queries" type="tns:ArrayOfMessageStatusQuery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndGetMessageStatusesByMessageStatusQueriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndGetMessageStatusesByMessageStatusQueriesResult" type="tns:ArrayOfMessageStatusQueryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessage2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="priority" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="resolution" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="coverpage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="memo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderCompany" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientCompany" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientVoice" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tsi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessage2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewFaxMessage2Result" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPhonebooks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="PHONEBOOKSCOPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="PRIVATE" />
+          <s:enumeration value="PUBLIC" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListPhonebooksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPhonebooksResult" type="tns:ArrayOfPhonebookInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPhonebookInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PhonebookInfo" nillable="true" type="tns:PhonebookInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PhonebookInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PhonebookName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PhonebookID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Scope" type="tns:PHONEBOOKSCOPE" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdatePhonebook">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newDescription" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePhonebookResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePhonebookResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitForPreview">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idtag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitForPreviewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitForPreviewResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="format" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingImageResult" type="tns:Attachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Attachment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FileContent" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReleasePendingMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleasePendingMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReleasePendingMessageResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelPendingMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelPendingMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelPendingMessageResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAndSendNewFaxMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxQueue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="idTag" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="priority" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="resolution" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="coverpage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="memo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderInfo" type="tns:SenderInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipients" type="tns:ArrayOfRecipientInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachments" type="tns:ArrayOfAttachment" />
+            <s:element minOccurs="0" maxOccurs="1" name="tsi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SenderInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRecipientInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RecipientInfo" nillable="true" type="tns:RecipientInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecipientInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Account" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CoverPage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAttachment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attachment" nillable="true" type="tns:Attachment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginAndSendNewFaxMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAndSendNewFaxMessageResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendNewFaxMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idTag" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="priority" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="resolution" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="coverpage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="memo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderInfo" type="tns:SenderInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipients" type="tns:ArrayOfRecipientInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachments" type="tns:ArrayOfAttachment" />
+            <s:element minOccurs="0" maxOccurs="1" name="tsi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendNewFaxMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendNewFaxMessageResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPhonebookAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPhonebookAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPhonebookAddressesResult" type="tns:ArrayOfAddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAddressInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressInfo" nillable="true" type="tns:AddressInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Account" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PhonebookID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NewPhonebook">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="0" maxOccurs="1" name="phonebookName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phonebookDescription" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewPhonebookResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewPhonebookResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookScope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newAddressInfo" type="tns:AddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewAddressResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAddressToGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sourceScope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="sourcePhonebookID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sourceAddressID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetScope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetPhonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetGroupName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAddressToGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddAddressToGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="addressID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="modifiedAddress" type="tns:AddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyAddressResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyAddressInGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="addressID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="modifiedAddress" type="tns:AddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyAddressInGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyAddressInGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="addressID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteAddressResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAddressInGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="addressID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAddressInGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteAddressInGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="currentGroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newGroupName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPhonebookGroups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPhonebookGroupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPhonebookGroupsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupAddressesResult" type="tns:ArrayOfAddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePhonebook">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePhonebookResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeletePhonebookResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="scope" type="tns:PHONEBOOKSCOPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="phonebookID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteGroupResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCoverpageList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCoverpageListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCoverpageListResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSentImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueJobID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="format" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSentImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSentImageResult" type="tns:Attachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessageFromUniqueID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueJobID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewFaxMessageFromUniqueIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewFaxMessageFromUniqueIDResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFaxMessageProperties">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFaxMessagePropertiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFaxMessagePropertiesResult" type="tns:FaxMessageProperties" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FaxMessageProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Coverpage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Recipients" type="tns:ArrayOfRecipientInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sender" type="tns:SenderInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Memo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Priority" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Resolution" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SendTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetFaxMessageProperties">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="messageProperties" type="tns:FaxMessageProperties" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetFaxMessagePropertiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetFaxMessagePropertiesResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="includeFileContent" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAttachmentsResult" type="tns:ArrayOfAttachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="attachmentIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAttachmentResult" type="tns:Attachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="attachmentIndex" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveAttachmentResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendFailedFax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueJobID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recipientIndex" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newFaxNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newSendTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="newPriority" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendFailedFaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResendFailedFaxResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSupportedFeatures">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListSupportedFeaturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSupportedFeaturesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkAsReadByIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faxIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="readFlag" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkAsReadByIDsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MarkAsReadByIDsResult" type="tns:ResultMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobActivity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uniqueJobID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idTag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobActivityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobActivityResult" type="tns:ArrayOfActivityRecord" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfActivityRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActivityRecord" nillable="true" type="tns:ActivityRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActivityRecord">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="JobID" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueJobID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateAndTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Retries" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sender" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalPages" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransmissionStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConnectTime" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransferRate" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDTag" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ShowThreadingModelSoapIn">
+    <wsdl:part name="parameters" element="tns:ShowThreadingModel" />
+  </wsdl:message>
+  <wsdl:message name="ShowThreadingModelSoapOut">
+    <wsdl:part name="parameters" element="tns:ShowThreadingModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebServiceVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:WebServiceVersion" />
+  </wsdl:message>
+  <wsdl:message name="WebServiceVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:WebServiceVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetLegacyModeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetLegacyMode" />
+  </wsdl:message>
+  <wsdl:message name="SetLegacyModeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetLegacyModeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLegacyModeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLegacyMode" />
+  </wsdl:message>
+  <wsdl:message name="GetLegacyModeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLegacyModeResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogOnSoapIn">
+    <wsdl:part name="parameters" element="tns:LogOn" />
+  </wsdl:message>
+  <wsdl:message name="LogOnSoapOut">
+    <wsdl:part name="parameters" element="tns:LogOnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:ReleaseSession" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:ReleaseSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetSenderInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:SetSenderInformation" />
+  </wsdl:message>
+  <wsdl:message name="SetSenderInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:SetSenderInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:NewFaxMessage" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:NewFaxMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRecipientSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRecipient" />
+  </wsdl:message>
+  <wsdl:message name="AddRecipientSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRecipientResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRecipientExSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRecipientEx" />
+  </wsdl:message>
+  <wsdl:message name="AddRecipientExSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRecipientExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFax" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastUniqueJobIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastUniqueJobID" />
+  </wsdl:message>
+  <wsdl:message name="GetLastUniqueJobIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastUniqueJobIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveFaxSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveFax" />
+  </wsdl:message>
+  <wsdl:message name="SaveFaxSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveFaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAttachment" />
+  </wsdl:message>
+  <wsdl:message name="AddAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAttachmentByUNCSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAttachmentByUNC" />
+  </wsdl:message>
+  <wsdl:message name="AddAttachmentByUNCSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAttachmentByUNCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusByUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusByUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusByUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusByUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusByUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusByUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusByIDTagSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByIDTag" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusByIDTagSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByIDTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusByIDTagSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusByIDTag" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusByIDTagSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusByIDTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusesCount" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatuses" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesEx" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesExResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatuses" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveMessageStatusbyUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveMessageStatusbyUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="RemoveMessageStatusbyUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveMessageStatusbyUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndRemoveMessageStatusByUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndRemoveMessageStatusByUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndRemoveMessageStatusByUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndRemoveMessageStatusByUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessageByUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingMessageByUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessageByUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingMessageByUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessageByIDTagSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingMessageByIDTag" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessageByIDTagSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingMessageByIDTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingMessagesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingMessagesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingMessages" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingMessagesEx" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingMessagesExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingMessagesExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessages" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessages2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessages2" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessages2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessages2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessages3SoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessages3" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessages3SoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessages3Response" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesByIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesByIDs" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesByIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesByIDs2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesByIDs2" />
+  </wsdl:message>
+  <wsdl:message name="GetReceivedMessagesByIDs2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceivedMessagesByIDs2Response" />
+  </wsdl:message>
+  <wsdl:message name="RemoveReceivedMessagesByIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveReceivedMessagesByIDs" />
+  </wsdl:message>
+  <wsdl:message name="RemoveReceivedMessagesByIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveReceivedMessagesByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesByUniqueIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesByUniqueIDs" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesByUniqueIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesByUniqueIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesByMessageStatusQueriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesByMessageStatusQueries" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageStatusesByMessageStatusQueriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusesByMessageStatusQueriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesByMessageStatusQueriesSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusesByMessageStatusQueries" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndGetMessageStatusesByMessageStatusQueriesSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndGetMessageStatusesByMessageStatusQueriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessage2SoapIn">
+    <wsdl:part name="parameters" element="tns:NewFaxMessage2" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessage2SoapOut">
+    <wsdl:part name="parameters" element="tns:NewFaxMessage2Response" />
+  </wsdl:message>
+  <wsdl:message name="ListPhonebooksSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPhonebooks" />
+  </wsdl:message>
+  <wsdl:message name="ListPhonebooksSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPhonebooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePhonebookSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePhonebook" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePhonebookSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePhonebookResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitForPreviewSoapIn">
+    <wsdl:part name="parameters" element="tns:SubmitForPreview" />
+  </wsdl:message>
+  <wsdl:message name="SubmitForPreviewSoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitForPreviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingImageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingImage" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingImageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReleasePendingMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:ReleasePendingMessage" />
+  </wsdl:message>
+  <wsdl:message name="ReleasePendingMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:ReleasePendingMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelPendingMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelPendingMessage" />
+  </wsdl:message>
+  <wsdl:message name="CancelPendingMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelPendingMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndSendNewFaxMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAndSendNewFaxMessage" />
+  </wsdl:message>
+  <wsdl:message name="LoginAndSendNewFaxMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAndSendNewFaxMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendNewFaxMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendNewFaxMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendNewFaxMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendNewFaxMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPhonebookAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPhonebookAddresses" />
+  </wsdl:message>
+  <wsdl:message name="GetPhonebookAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPhonebookAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewPhonebookSoapIn">
+    <wsdl:part name="parameters" element="tns:NewPhonebook" />
+  </wsdl:message>
+  <wsdl:message name="NewPhonebookSoapOut">
+    <wsdl:part name="parameters" element="tns:NewPhonebookResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:NewAddress" />
+  </wsdl:message>
+  <wsdl:message name="NewAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:NewAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAddressToGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAddressToGroup" />
+  </wsdl:message>
+  <wsdl:message name="AddAddressToGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAddressToGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:ModifyAddress" />
+  </wsdl:message>
+  <wsdl:message name="ModifyAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyAddressInGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:ModifyAddressInGroup" />
+  </wsdl:message>
+  <wsdl:message name="ModifyAddressInGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyAddressInGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAddress" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAddressInGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAddressInGroup" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAddressInGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAddressInGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:NewGroup" />
+  </wsdl:message>
+  <wsdl:message name="NewGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:NewGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:ModifyGroup" />
+  </wsdl:message>
+  <wsdl:message name="ModifyGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListPhonebookGroupsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPhonebookGroups" />
+  </wsdl:message>
+  <wsdl:message name="ListPhonebookGroupsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPhonebookGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupAddresses" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePhonebookSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePhonebook" />
+  </wsdl:message>
+  <wsdl:message name="DeletePhonebookSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePhonebookResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteGroup" />
+  </wsdl:message>
+  <wsdl:message name="DeleteGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverpageListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCoverpageList" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverpageListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCoverpageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSentImageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSentImage" />
+  </wsdl:message>
+  <wsdl:message name="GetSentImageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSentImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessageFromUniqueIDSoapIn">
+    <wsdl:part name="parameters" element="tns:NewFaxMessageFromUniqueID" />
+  </wsdl:message>
+  <wsdl:message name="NewFaxMessageFromUniqueIDSoapOut">
+    <wsdl:part name="parameters" element="tns:NewFaxMessageFromUniqueIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFaxMessagePropertiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFaxMessageProperties" />
+  </wsdl:message>
+  <wsdl:message name="GetFaxMessagePropertiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFaxMessagePropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetFaxMessagePropertiesSoapIn">
+    <wsdl:part name="parameters" element="tns:SetFaxMessageProperties" />
+  </wsdl:message>
+  <wsdl:message name="SetFaxMessagePropertiesSoapOut">
+    <wsdl:part name="parameters" element="tns:SetFaxMessagePropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAttachmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAttachments" />
+  </wsdl:message>
+  <wsdl:message name="GetAttachmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAttachmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAttachment" />
+  </wsdl:message>
+  <wsdl:message name="GetAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveAttachment" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResendFailedFaxSoapIn">
+    <wsdl:part name="parameters" element="tns:ResendFailedFax" />
+  </wsdl:message>
+  <wsdl:message name="ResendFailedFaxSoapOut">
+    <wsdl:part name="parameters" element="tns:ResendFailedFaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSupportedFeaturesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSupportedFeatures" />
+  </wsdl:message>
+  <wsdl:message name="ListSupportedFeaturesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSupportedFeaturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarkAsReadByIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:MarkAsReadByIDs" />
+  </wsdl:message>
+  <wsdl:message name="MarkAsReadByIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:MarkAsReadByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobActivitySoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobActivity" />
+  </wsdl:message>
+  <wsdl:message name="GetJobActivitySoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobActivityResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FAXCOM_x0020_ServiceSoap">
+    <wsdl:operation name="ShowThreadingModel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify threading model used by the web service (MTA or STA)</wsdl:documentation>
+      <wsdl:input message="tns:ShowThreadingModelSoapIn" />
+      <wsdl:output message="tns:ShowThreadingModelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WebServiceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the version information for the web service</wsdl:documentation>
+      <wsdl:input message="tns:WebServiceVersionSoapIn" />
+      <wsdl:output message="tns:WebServiceVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetLegacyMode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the legacy mode for the session to run under</wsdl:documentation>
+      <wsdl:input message="tns:SetLegacyModeSoapIn" />
+      <wsdl:output message="tns:SetLegacyModeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegacyMode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the legacy mode the session is running under</wsdl:documentation>
+      <wsdl:input message="tns:GetLegacyModeSoapIn" />
+      <wsdl:output message="tns:GetLegacyModeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOn">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Start a new FAXCOM Session</wsdl:documentation>
+      <wsdl:input message="tns:LogOnSoapIn" />
+      <wsdl:output message="tns:LogOnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSession">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Release FAXCOM Session</wsdl:documentation>
+      <wsdl:input message="tns:ReleaseSessionSoapIn" />
+      <wsdl:output message="tns:ReleaseSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSenderInformation">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set the default sender information</wsdl:documentation>
+      <wsdl:input message="tns:SetSenderInformationSoapIn" />
+      <wsdl:output message="tns:SetSenderInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Start a new Fax Message</wsdl:documentation>
+      <wsdl:input message="tns:NewFaxMessageSoapIn" />
+      <wsdl:output message="tns:NewFaxMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a recipient to a fax message</wsdl:documentation>
+      <wsdl:input message="tns:AddRecipientSoapIn" />
+      <wsdl:output message="tns:AddRecipientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipientEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a recipient to a fax message</wsdl:documentation>
+      <wsdl:input message="tns:AddRecipientExSoapIn" />
+      <wsdl:output message="tns:AddRecipientExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send the fax and return the result of operation</wsdl:documentation>
+      <wsdl:input message="tns:SendFaxSoapIn" />
+      <wsdl:output message="tns:SendFaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastUniqueJobID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the unique job id assigned to the last submitted fax</wsdl:documentation>
+      <wsdl:input message="tns:GetLastUniqueJobIDSoapIn" />
+      <wsdl:output message="tns:GetLastUniqueJobIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveFax">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save the fax in a given folder, optionally submit the fax</wsdl:documentation>
+      <wsdl:input message="tns:SaveFaxSoapIn" />
+      <wsdl:output message="tns:SaveFaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds a file as an attachment to the fax</wsdl:documentation>
+      <wsdl:input message="tns:AddAttachmentSoapIn" />
+      <wsdl:output message="tns:AddAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachmentByUNC">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds a file as an attachment to the fax</wsdl:documentation>
+      <wsdl:input message="tns:AddAttachmentByUNCSoapIn" />
+      <wsdl:output message="tns:AddAttachmentByUNCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the message status by Unique ID</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusByUniqueIDSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusByUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, get the message status by Unique ID, log out</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndGetMessageStatusByUniqueIDSoapIn" />
+      <wsdl:output message="tns:LoginAndGetMessageStatusByUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByIDTag">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the message status by ID Tag</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusByIDTagSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusByIDTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByIDTag">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, get the message status by ID Tag, log out</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndGetMessageStatusByIDTagSoapIn" />
+      <wsdl:output message="tns:LoginAndGetMessageStatusByIDTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the size of the Message Status Collection</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusesCountSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, retrieve the size of the Message Status Collection, log out</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndGetMessageStatusesCountSoapIn" />
+      <wsdl:output message="tns:LoginAndGetMessageStatusesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatuses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of Message Status objects</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusesSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of Message Status objects</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusesExSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusesExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatuses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, retrieve an array of Message Status objects, log out</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndGetMessageStatusesSoapIn" />
+      <wsdl:output message="tns:LoginAndGetMessageStatusesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMessageStatusbyUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Removes a message status based on its uniqueID and recipient index</wsdl:documentation>
+      <wsdl:input message="tns:RemoveMessageStatusbyUniqueIDSoapIn" />
+      <wsdl:output message="tns:RemoveMessageStatusbyUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndRemoveMessageStatusByUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, remove a message status based on its uniqueID and recipient index, log out</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndRemoveMessageStatusByUniqueIDSoapIn" />
+      <wsdl:output message="tns:LoginAndRemoveMessageStatusByUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the pending message object given the ID</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingMessageByUniqueIDSoapIn" />
+      <wsdl:output message="tns:GetPendingMessageByUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByIDTag">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the pending message object given the IDTag</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingMessageByIDTagSoapIn" />
+      <wsdl:output message="tns:GetPendingMessageByIDTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the size of the Message Status Collection</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingMessagesCountSoapIn" />
+      <wsdl:output message="tns:GetPendingMessagesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of PendingMessage objects</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingMessagesSoapIn" />
+      <wsdl:output message="tns:GetPendingMessagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of PendingMessage objects</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingMessagesExSoapIn" />
+      <wsdl:output message="tns:GetPendingMessagesExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the size of the Received Messages Collection</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessagesCountSoapIn" />
+      <wsdl:output message="tns:GetReceivedMessagesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of data for received faxes, optionally including the fax images</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessagesSoapIn" />
+      <wsdl:output message="tns:GetReceivedMessagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of data for received faxes, optionally including the fax images</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessages2SoapIn" />
+      <wsdl:output message="tns:GetReceivedMessages2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages3">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve an array of data for received faxes, optionally including the fax images</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessages3SoapIn" />
+      <wsdl:output message="tns:GetReceivedMessages3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves an array of data for received faxes, including the fax images</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessagesByIDsSoapIn" />
+      <wsdl:output message="tns:GetReceivedMessagesByIDsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves an array of data for received faxes, including the fax images</wsdl:documentation>
+      <wsdl:input message="tns:GetReceivedMessagesByIDs2SoapIn" />
+      <wsdl:output message="tns:GetReceivedMessagesByIDs2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveReceivedMessagesByIDs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes received fax files from the server</wsdl:documentation>
+      <wsdl:input message="tns:RemoveReceivedMessagesByIDsSoapIn" />
+      <wsdl:output message="tns:RemoveReceivedMessagesByIDsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByUniqueIDs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of MessageStatus objects matching an array of unique IDs</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusesByUniqueIDsSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusesByUniqueIDsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByMessageStatusQueries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of MessageStatusQueryResults matching an array of MessageStatusQuery objects.</wsdl:documentation>
+      <wsdl:input message="tns:GetMessageStatusesByMessageStatusQueriesSoapIn" />
+      <wsdl:output message="tns:GetMessageStatusesByMessageStatusQueriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesByMessageStatusQueries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in, return a list of MessageStatusQueryResult-s matching an array of MessageStatusQuery objects, log out.</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndGetMessageStatusesByMessageStatusQueriesSoapIn" />
+      <wsdl:output message="tns:LoginAndGetMessageStatusesByMessageStatusQueriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create new fax message.  Option to specify sender company.</wsdl:documentation>
+      <wsdl:input message="tns:NewFaxMessage2SoapIn" />
+      <wsdl:output message="tns:NewFaxMessage2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebooks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an array of PhonebookInfo objects containing phonebook name, ID number and scope.</wsdl:documentation>
+      <wsdl:input message="tns:ListPhonebooksSoapIn" />
+      <wsdl:output message="tns:ListPhonebooksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePhonebook">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update phonebook name and description</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePhonebookSoapIn" />
+      <wsdl:output message="tns:UpdatePhonebookSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitForPreview">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submit fax for preview.</wsdl:documentation>
+      <wsdl:input message="tns:SubmitForPreviewSoapIn" />
+      <wsdl:output message="tns:SubmitForPreviewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retreive pending fax for preview</wsdl:documentation>
+      <wsdl:input message="tns:GetPendingImageSoapIn" />
+      <wsdl:output message="tns:GetPendingImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleasePendingMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Release pending fax for transmission</wsdl:documentation>
+      <wsdl:input message="tns:ReleasePendingMessageSoapIn" />
+      <wsdl:output message="tns:ReleasePendingMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPendingMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancel pending fax</wsdl:documentation>
+      <wsdl:input message="tns:CancelPendingMessageSoapIn" />
+      <wsdl:output message="tns:CancelPendingMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndSendNewFaxMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Login and send fax, then release session.</wsdl:documentation>
+      <wsdl:input message="tns:LoginAndSendNewFaxMessageSoapIn" />
+      <wsdl:output message="tns:LoginAndSendNewFaxMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendNewFaxMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create and send new fax message</wsdl:documentation>
+      <wsdl:input message="tns:SendNewFaxMessageSoapIn" />
+      <wsdl:output message="tns:SendNewFaxMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhonebookAddresses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get addresses in specified public or private phonebook</wsdl:documentation>
+      <wsdl:input message="tns:GetPhonebookAddressesSoapIn" />
+      <wsdl:output message="tns:GetPhonebookAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewPhonebook">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create new phonebook</wsdl:documentation>
+      <wsdl:input message="tns:NewPhonebookSoapIn" />
+      <wsdl:output message="tns:NewPhonebookSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add an address</wsdl:documentation>
+      <wsdl:input message="tns:NewAddressSoapIn" />
+      <wsdl:output message="tns:NewAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAddressToGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add an address to group</wsdl:documentation>
+      <wsdl:input message="tns:AddAddressToGroupSoapIn" />
+      <wsdl:output message="tns:AddAddressToGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modify address</wsdl:documentation>
+      <wsdl:input message="tns:ModifyAddressSoapIn" />
+      <wsdl:output message="tns:ModifyAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddressInGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modify address in a group</wsdl:documentation>
+      <wsdl:input message="tns:ModifyAddressInGroupSoapIn" />
+      <wsdl:output message="tns:ModifyAddressInGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete address</wsdl:documentation>
+      <wsdl:input message="tns:DeleteAddressSoapIn" />
+      <wsdl:output message="tns:DeleteAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddressInGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete address in a group</wsdl:documentation>
+      <wsdl:input message="tns:DeleteAddressInGroupSoapIn" />
+      <wsdl:output message="tns:DeleteAddressInGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create new group</wsdl:documentation>
+      <wsdl:input message="tns:NewGroupSoapIn" />
+      <wsdl:output message="tns:NewGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change name of group</wsdl:documentation>
+      <wsdl:input message="tns:ModifyGroupSoapIn" />
+      <wsdl:output message="tns:ModifyGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebookGroups">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get groups in specified phonebook</wsdl:documentation>
+      <wsdl:input message="tns:ListPhonebookGroupsSoapIn" />
+      <wsdl:output message="tns:ListPhonebookGroupsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAddresses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get addresses in specified group</wsdl:documentation>
+      <wsdl:input message="tns:GetGroupAddressesSoapIn" />
+      <wsdl:output message="tns:GetGroupAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePhonebook">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a phonebook</wsdl:documentation>
+      <wsdl:input message="tns:DeletePhonebookSoapIn" />
+      <wsdl:output message="tns:DeletePhonebookSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete the specified group</wsdl:documentation>
+      <wsdl:input message="tns:DeleteGroupSoapIn" />
+      <wsdl:output message="tns:DeleteGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverpageList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the list of allowed values for the coverpage</wsdl:documentation>
+      <wsdl:input message="tns:GetCoverpageListSoapIn" />
+      <wsdl:output message="tns:GetCoverpageListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSentImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the rendered image of a sent fax (if enabled).  Recipient index is 0 for the first (or only) recipient.  Format is 'TIF' or 'PDF'.</wsdl:documentation>
+      <wsdl:input message="tns:GetSentImageSoapIn" />
+      <wsdl:output message="tns:GetSentImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessageFromUniqueID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create a New Fax Message from a failed, sent or saved fax.  Recipient index is 0 for the first (or only) recipient.</wsdl:documentation>
+      <wsdl:input message="tns:NewFaxMessageFromUniqueIDSoapIn" />
+      <wsdl:output message="tns:NewFaxMessageFromUniqueIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxMessageProperties">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get properties of the currently initialzied Fax Message</wsdl:documentation>
+      <wsdl:input message="tns:GetFaxMessagePropertiesSoapIn" />
+      <wsdl:output message="tns:GetFaxMessagePropertiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetFaxMessageProperties">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set properties of the currently initialized Fax Message</wsdl:documentation>
+      <wsdl:input message="tns:SetFaxMessagePropertiesSoapIn" />
+      <wsdl:output message="tns:SetFaxMessagePropertiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the attachments from the currently initialized Fax Message</wsdl:documentation>
+      <wsdl:input message="tns:GetAttachmentsSoapIn" />
+      <wsdl:output message="tns:GetAttachmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an attachment by index from the currently initialized Fax Message.  Will include file data.</wsdl:documentation>
+      <wsdl:input message="tns:GetAttachmentSoapIn" />
+      <wsdl:output message="tns:GetAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAttachment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Remove an attachment by index from the currently initialized Fax Message.</wsdl:documentation>
+      <wsdl:input message="tns:RemoveAttachmentSoapIn" />
+      <wsdl:output message="tns:RemoveAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResendFailedFax">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Resend a failed fax.</wsdl:documentation>
+      <wsdl:input message="tns:ResendFailedFaxSoapIn" />
+      <wsdl:output message="tns:ResendFailedFaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSupportedFeatures">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List special features supported by server.</wsdl:documentation>
+      <wsdl:input message="tns:ListSupportedFeaturesSoapIn" />
+      <wsdl:output message="tns:ListSupportedFeaturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsReadByIDs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set messages as read or unread</wsdl:documentation>
+      <wsdl:input message="tns:MarkAsReadByIDsSoapIn" />
+      <wsdl:output message="tns:MarkAsReadByIDsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobActivity">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get activity records for a specific job</wsdl:documentation>
+      <wsdl:input message="tns:GetJobActivitySoapIn" />
+      <wsdl:output message="tns:GetJobActivitySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FAXCOM_x0020_ServiceSoap" type="tns:FAXCOM_x0020_ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ShowThreadingModel">
+      <soap:operation soapAction="www.biscom.com/ShowThreadingModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WebServiceVersion">
+      <soap:operation soapAction="www.biscom.com/WebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetLegacyMode">
+      <soap:operation soapAction="www.biscom.com/SetLegacyMode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLegacyMode">
+      <soap:operation soapAction="www.biscom.com/GetLegacyMode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOn">
+      <soap:operation soapAction="www.biscom.com/LogOn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSession">
+      <soap:operation soapAction="www.biscom.com/ReleaseSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSenderInformation">
+      <soap:operation soapAction="www.biscom.com/SetSenderInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage">
+      <soap:operation soapAction="www.biscom.com/NewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipient">
+      <soap:operation soapAction="www.biscom.com/AddRecipient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipientEx">
+      <soap:operation soapAction="www.biscom.com/AddRecipientEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <soap:operation soapAction="www.biscom.com/SendFax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastUniqueJobID">
+      <soap:operation soapAction="www.biscom.com/GetLastUniqueJobID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFax">
+      <soap:operation soapAction="www.biscom.com/SaveFax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachment">
+      <soap:operation soapAction="www.biscom.com/AddAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachmentByUNC">
+      <soap:operation soapAction="www.biscom.com/AddAttachmentByUNC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByUniqueID">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByUniqueID">
+      <soap:operation soapAction="www.biscom.com/LoginAndGetMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByIDTag">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusByIDTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByIDTag">
+      <soap:operation soapAction="www.biscom.com/LoginAndGetMessageStatusByIDTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesCount">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesCount">
+      <soap:operation soapAction="www.biscom.com/LoginAndGetMessageStatusesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatuses">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatuses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesEx">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusesEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatuses">
+      <soap:operation soapAction="www.biscom.com/LoginAndGetMessageStatuses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMessageStatusbyUniqueID">
+      <soap:operation soapAction="www.biscom.com/RemoveMessageStatusbyUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndRemoveMessageStatusByUniqueID">
+      <soap:operation soapAction="www.biscom.com/LoginAndRemoveMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByUniqueID">
+      <soap:operation soapAction="www.biscom.com/GetPendingMessageByUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByIDTag">
+      <soap:operation soapAction="www.biscom.com/GetPendingMessageByIDTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesCount">
+      <soap:operation soapAction="www.biscom.com/GetPendingMessagesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessages">
+      <soap:operation soapAction="www.biscom.com/GetPendingMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesEx">
+      <soap:operation soapAction="www.biscom.com/GetPendingMessagesEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesCount">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessagesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages2">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessages2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages3">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessages3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessagesByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs2">
+      <soap:operation soapAction="www.biscom.com/GetReceivedMessagesByIDs2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveReceivedMessagesByIDs">
+      <soap:operation soapAction="www.biscom.com/RemoveReceivedMessagesByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByUniqueIDs">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusesByUniqueIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByMessageStatusQueries">
+      <soap:operation soapAction="www.biscom.com/GetMessageStatusesByMessageStatusQueries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesByMessageStatusQueries">
+      <soap:operation soapAction="www.biscom.com/LoginAndGetMessageStatusesByMessageStatusQueries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage2">
+      <soap:operation soapAction="www.biscom.com/NewFaxMessage2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebooks">
+      <soap:operation soapAction="www.biscom.com/ListPhonebooks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePhonebook">
+      <soap:operation soapAction="www.biscom.com/UpdatePhonebook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitForPreview">
+      <soap:operation soapAction="www.biscom.com/SubmitForPreview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingImage">
+      <soap:operation soapAction="www.biscom.com/GetPendingImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleasePendingMessage">
+      <soap:operation soapAction="www.biscom.com/ReleasePendingMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPendingMessage">
+      <soap:operation soapAction="www.biscom.com/CancelPendingMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndSendNewFaxMessage">
+      <soap:operation soapAction="www.biscom.com/LoginAndSendNewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNewFaxMessage">
+      <soap:operation soapAction="www.biscom.com/SendNewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhonebookAddresses">
+      <soap:operation soapAction="www.biscom.com/GetPhonebookAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewPhonebook">
+      <soap:operation soapAction="www.biscom.com/NewPhonebook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewAddress">
+      <soap:operation soapAction="www.biscom.com/NewAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAddressToGroup">
+      <soap:operation soapAction="www.biscom.com/AddAddressToGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddress">
+      <soap:operation soapAction="www.biscom.com/ModifyAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddressInGroup">
+      <soap:operation soapAction="www.biscom.com/ModifyAddressInGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddress">
+      <soap:operation soapAction="www.biscom.com/DeleteAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddressInGroup">
+      <soap:operation soapAction="www.biscom.com/DeleteAddressInGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewGroup">
+      <soap:operation soapAction="www.biscom.com/NewGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyGroup">
+      <soap:operation soapAction="www.biscom.com/ModifyGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebookGroups">
+      <soap:operation soapAction="www.biscom.com/ListPhonebookGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAddresses">
+      <soap:operation soapAction="www.biscom.com/GetGroupAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePhonebook">
+      <soap:operation soapAction="www.biscom.com/DeletePhonebook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <soap:operation soapAction="www.biscom.com/DeleteGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverpageList">
+      <soap:operation soapAction="www.biscom.com/GetCoverpageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSentImage">
+      <soap:operation soapAction="www.biscom.com/GetSentImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessageFromUniqueID">
+      <soap:operation soapAction="www.biscom.com/NewFaxMessageFromUniqueID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxMessageProperties">
+      <soap:operation soapAction="www.biscom.com/GetFaxMessageProperties" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetFaxMessageProperties">
+      <soap:operation soapAction="www.biscom.com/SetFaxMessageProperties" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachments">
+      <soap:operation soapAction="www.biscom.com/GetAttachments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachment">
+      <soap:operation soapAction="www.biscom.com/GetAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAttachment">
+      <soap:operation soapAction="www.biscom.com/RemoveAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendFailedFax">
+      <soap:operation soapAction="www.biscom.com/ResendFailedFax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSupportedFeatures">
+      <soap:operation soapAction="www.biscom.com/ListSupportedFeatures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsReadByIDs">
+      <soap:operation soapAction="www.biscom.com/MarkAsReadByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobActivity">
+      <soap:operation soapAction="www.biscom.com/GetJobActivity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FAXCOM_x0020_ServiceSoap12" type="tns:FAXCOM_x0020_ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ShowThreadingModel">
+      <soap12:operation soapAction="www.biscom.com/ShowThreadingModel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WebServiceVersion">
+      <soap12:operation soapAction="www.biscom.com/WebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetLegacyMode">
+      <soap12:operation soapAction="www.biscom.com/SetLegacyMode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLegacyMode">
+      <soap12:operation soapAction="www.biscom.com/GetLegacyMode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOn">
+      <soap12:operation soapAction="www.biscom.com/LogOn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSession">
+      <soap12:operation soapAction="www.biscom.com/ReleaseSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSenderInformation">
+      <soap12:operation soapAction="www.biscom.com/SetSenderInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage">
+      <soap12:operation soapAction="www.biscom.com/NewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipient">
+      <soap12:operation soapAction="www.biscom.com/AddRecipient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipientEx">
+      <soap12:operation soapAction="www.biscom.com/AddRecipientEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <soap12:operation soapAction="www.biscom.com/SendFax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastUniqueJobID">
+      <soap12:operation soapAction="www.biscom.com/GetLastUniqueJobID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFax">
+      <soap12:operation soapAction="www.biscom.com/SaveFax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachment">
+      <soap12:operation soapAction="www.biscom.com/AddAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAttachmentByUNC">
+      <soap12:operation soapAction="www.biscom.com/AddAttachmentByUNC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByUniqueID">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByUniqueID">
+      <soap12:operation soapAction="www.biscom.com/LoginAndGetMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByIDTag">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusByIDTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusByIDTag">
+      <soap12:operation soapAction="www.biscom.com/LoginAndGetMessageStatusByIDTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesCount">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesCount">
+      <soap12:operation soapAction="www.biscom.com/LoginAndGetMessageStatusesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatuses">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatuses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesEx">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusesEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatuses">
+      <soap12:operation soapAction="www.biscom.com/LoginAndGetMessageStatuses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMessageStatusbyUniqueID">
+      <soap12:operation soapAction="www.biscom.com/RemoveMessageStatusbyUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndRemoveMessageStatusByUniqueID">
+      <soap12:operation soapAction="www.biscom.com/LoginAndRemoveMessageStatusByUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByUniqueID">
+      <soap12:operation soapAction="www.biscom.com/GetPendingMessageByUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessageByIDTag">
+      <soap12:operation soapAction="www.biscom.com/GetPendingMessageByIDTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesCount">
+      <soap12:operation soapAction="www.biscom.com/GetPendingMessagesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessages">
+      <soap12:operation soapAction="www.biscom.com/GetPendingMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingMessagesEx">
+      <soap12:operation soapAction="www.biscom.com/GetPendingMessagesEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesCount">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessagesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages2">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessages2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessages3">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessages3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessagesByIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceivedMessagesByIDs2">
+      <soap12:operation soapAction="www.biscom.com/GetReceivedMessagesByIDs2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveReceivedMessagesByIDs">
+      <soap12:operation soapAction="www.biscom.com/RemoveReceivedMessagesByIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByUniqueIDs">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusesByUniqueIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusesByMessageStatusQueries">
+      <soap12:operation soapAction="www.biscom.com/GetMessageStatusesByMessageStatusQueries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndGetMessageStatusesByMessageStatusQueries">
+      <soap12:operation soapAction="www.biscom.com/LoginAndGetMessageStatusesByMessageStatusQueries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessage2">
+      <soap12:operation soapAction="www.biscom.com/NewFaxMessage2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebooks">
+      <soap12:operation soapAction="www.biscom.com/ListPhonebooks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePhonebook">
+      <soap12:operation soapAction="www.biscom.com/UpdatePhonebook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitForPreview">
+      <soap12:operation soapAction="www.biscom.com/SubmitForPreview" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingImage">
+      <soap12:operation soapAction="www.biscom.com/GetPendingImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleasePendingMessage">
+      <soap12:operation soapAction="www.biscom.com/ReleasePendingMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPendingMessage">
+      <soap12:operation soapAction="www.biscom.com/CancelPendingMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAndSendNewFaxMessage">
+      <soap12:operation soapAction="www.biscom.com/LoginAndSendNewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNewFaxMessage">
+      <soap12:operation soapAction="www.biscom.com/SendNewFaxMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhonebookAddresses">
+      <soap12:operation soapAction="www.biscom.com/GetPhonebookAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewPhonebook">
+      <soap12:operation soapAction="www.biscom.com/NewPhonebook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewAddress">
+      <soap12:operation soapAction="www.biscom.com/NewAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAddressToGroup">
+      <soap12:operation soapAction="www.biscom.com/AddAddressToGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddress">
+      <soap12:operation soapAction="www.biscom.com/ModifyAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAddressInGroup">
+      <soap12:operation soapAction="www.biscom.com/ModifyAddressInGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddress">
+      <soap12:operation soapAction="www.biscom.com/DeleteAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAddressInGroup">
+      <soap12:operation soapAction="www.biscom.com/DeleteAddressInGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewGroup">
+      <soap12:operation soapAction="www.biscom.com/NewGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyGroup">
+      <soap12:operation soapAction="www.biscom.com/ModifyGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPhonebookGroups">
+      <soap12:operation soapAction="www.biscom.com/ListPhonebookGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAddresses">
+      <soap12:operation soapAction="www.biscom.com/GetGroupAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePhonebook">
+      <soap12:operation soapAction="www.biscom.com/DeletePhonebook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <soap12:operation soapAction="www.biscom.com/DeleteGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverpageList">
+      <soap12:operation soapAction="www.biscom.com/GetCoverpageList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSentImage">
+      <soap12:operation soapAction="www.biscom.com/GetSentImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewFaxMessageFromUniqueID">
+      <soap12:operation soapAction="www.biscom.com/NewFaxMessageFromUniqueID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxMessageProperties">
+      <soap12:operation soapAction="www.biscom.com/GetFaxMessageProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetFaxMessageProperties">
+      <soap12:operation soapAction="www.biscom.com/SetFaxMessageProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachments">
+      <soap12:operation soapAction="www.biscom.com/GetAttachments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachment">
+      <soap12:operation soapAction="www.biscom.com/GetAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAttachment">
+      <soap12:operation soapAction="www.biscom.com/RemoveAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendFailedFax">
+      <soap12:operation soapAction="www.biscom.com/ResendFailedFax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSupportedFeatures">
+      <soap12:operation soapAction="www.biscom.com/ListSupportedFeatures" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsReadByIDs">
+      <soap12:operation soapAction="www.biscom.com/MarkAsReadByIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobActivity">
+      <soap12:operation soapAction="www.biscom.com/GetJobActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FAXCOM_x0020_Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service to send faxes and check their statuses using the Biscom Fax Servers</wsdl:documentation>
+    <wsdl:port name="FAXCOM_x0020_ServiceSoap" binding="tns:FAXCOM_x0020_ServiceSoap">
+      <soap:address location="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FAXCOM_x0020_ServiceSoap12" binding="tns:FAXCOM_x0020_ServiceSoap12">
+      <soap12:address location="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

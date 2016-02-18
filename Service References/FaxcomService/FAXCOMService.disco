@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx?wsdl" docRef="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx" xmlns:q1="www.biscom.com" binding="q1:FAXCOM_x005F_x0020_ServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://ltr1fx03/FAXCOM_WS/FAXCOMService.asmx" xmlns:q2="www.biscom.com" binding="q2:FAXCOM_x005F_x0020_ServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
