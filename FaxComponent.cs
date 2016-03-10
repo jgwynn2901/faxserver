@@ -1,78 +1,56 @@
-﻿using FaxServer.FaxcomService;
-using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
+using FaxServer.FaxcomService;
+using FaxServer.Model;
 
 namespace FaxServer
 {
     public class FaxComponent
     {
-        public const string companyName = "Sedgwick CMS";
-        public const string senderName = "John Gwynn";
-        public const string senderFax = "6175550000";
-        public const string senderEmail = "johngwynn@sedgwickcms.com";
-        private const string filespec = @"C:\src\fnsnet\";
-
-
-
-        private SenderInfo GetSenderInfo()
+        private readonly string _fileName;
+        
+        public FaxComponent(string fileName)
         {
-            return new SenderInfo()
-            {
-                Name = senderName,
-                FaxNumber = senderFax,
-                Email = senderEmail,
-                Company = senderName,
-                VoiceNumber = "6178862000"
-            };
+            _fileName = fileName;
         }
 
-        private RecipientInfo GetRecipientInfo()
+       public LoginAndSendNewFaxMessageResponse SendFax(FaxQueue q, Sender sender, Recipient recipient)
         {
-            return new RecipientInfo
+            var body = new LoginAndSendNewFaxMessageRequestBody
             {
-                Name = "FAXCOMService",
-                Company = companyName,
-                FaxNumber = "9014153301"
+                faxQueue = q.Queue,
+                userName = q.Username,
+                userType = 2,
+                senderInfo = new SenderInfo()
+                {
+                    Name = sender.Name,
+                    FaxNumber = sender.FaxNumber,
+                    Email = sender.Email,
+                    Company = sender.Company
+                }
             };
-        }
+            var recip = new RecipientInfo
+            {
+                Name = recipient.Name,
+                Account = recipient.Account,
+                Company = recipient.Company,
+                FaxNumber = recipient.FaxNumber
+            };
+            body.recipients = new[] { recip};
 
-        private Attachment GetAttachment(string fileName)
-        {
             var attachment = new Attachment();
-            var fs = new FileStream(filespec + fileName, FileMode.Open, FileAccess.Read);
-            byte[] fileContents = new byte[fs.Length];
-            Debug.Assert(fs.Length <= int.MaxValue);
+            var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read);
+            var fileContents = new byte[fs.Length];
+            //Assert.IsFalse(fs.Length > int.MaxValue);
             fs.Read(fileContents, 0, (int)fs.Length);
             attachment.FileContent = fileContents;
-            attachment.FileName = fileName;
-            return attachment;
-        }
+            attachment.FileName = _fileName;
 
-        private LoginAndSendNewFaxMessageRequestBody GetBody()
-        {
-            var body = new LoginAndSendNewFaxMessageRequestBody();
-            body.faxQueue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ";
-            body.userName = "Administrator";
-            body.userType = 2;
-            body.priority = 2;
-            body.sendTime = "0.0";
-            body.resolution = 0;
-            body.subject = "First Notice of Loss";
-            body.memo = "This is a test";
-            body.senderInfo = GetSenderInfo();
-            var recipient = GetRecipientInfo();
-            body.recipients = new RecipientInfo[] { recipient };
-            body.attachments = new Attachment[] { GetAttachment("WALOPM02SEDPP-2197.tif") };
-            return body;
-        }
+            body.attachments = new[] { attachment };
 
-        public string SendFax()
-        {
-            var request = new LoginAndSendNewFaxMessageRequest();
-            request.Body = GetBody();
+            // put it all together now
+            var request = new LoginAndSendNewFaxMessageRequest { Body = body };
             var svc = new FAXCOMServiceSoapClient();
-            var response = svc.LoginAndSendNewFaxMessage(request);
-            return response.Body.LoginAndSendNewFaxMessageResult.Detail ?? "Nothing returned!";
+           return svc.LoginAndSendNewFaxMessage(request);
         }
     }
 }

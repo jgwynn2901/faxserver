@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <Choose>
@@ -53,6 +54,7 @@
   <ItemGroup>
     <Compile Include="TestFaxcomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestParameters.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FaxServer.csproj">

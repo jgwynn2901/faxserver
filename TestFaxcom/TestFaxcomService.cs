@@ -2,8 +2,6 @@
 using FaxServer.FaxcomService;
 using System;
 using System.IO;
-using System.Net;
-using System.ServiceModel;
 using FaxServer;
 
 namespace TestFaxcom
@@ -11,15 +9,15 @@ namespace TestFaxcom
     [TestClass]
     public class TestFaxcomService
     {
-        private const string filespec = @"C:\src\fnsnet\WALOPM02SEDPP-2197.tif";
+        private const string Filespec = @"C:\src\fnsnet\WALOPM02SEDPP-2197.tif";
 
         [TestMethod]
         public void TestFaxcomLogin()
         {
             var svc = CreateAndLogin();
-            var request = new ReleaseSessionRequest();
-            request.Body = new ReleaseSessionRequestBody();
+            var request = new ReleaseSessionRequest {Body = new ReleaseSessionRequestBody()};
             var results = svc.ReleaseSession(request);
+            Assert.IsNotNull(results);
             Console.WriteLine(results.Body.ReleaseSessionResult.Detail);
             Assert.IsTrue(results.Body.ReleaseSessionResult.Result);
         }
@@ -27,34 +25,36 @@ namespace TestFaxcom
         [TestMethod]
         public void TestFaxComponent()
         {
-            var fax = new FaxComponent();
-            Console.WriteLine(fax.SendFax());
+            var fax = new FaxComponent(Filespec);
+            //Console.WriteLine(fax.SendFax());
         }
 
         [TestMethod]
         public void TestSendFaxLoginAndSend()
         {
-            var body = new LoginAndSendNewFaxMessageRequestBody();
-            body.faxQueue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ";
-            body.userName = "Administrator";
-            body.userType = 2;
-            body.senderInfo = new SenderInfo() {
-                Name = "John Gwynn",
-                FaxNumber = "555441234",
-                Email = "john.gwynn@sedgwickcms.com",
-                Company = "Sedgwick"
+            var body = new LoginAndSendNewFaxMessageRequestBody
+            {
+                faxQueue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ",
+                userName = "Administrator",
+                userType = 2,
+                senderInfo = new SenderInfo()
+                {
+                    Name = "John Gwynn",
+                    FaxNumber = "555441234",
+                    Email = "john.gwynn@sedgwickcms.com",
+                    Company = "Sedgwick"
+                }
             };
             var recipient = new RecipientInfo {
                 Name = "FAXCOMService",
                 Company = "IFN",
                 FaxNumber = "7812465325"
             };
-            body.recipients = new RecipientInfo[] { recipient };             
+            body.recipients = new[] { recipient };             
             body.attachments = GetAttachments();
 
             // put it all together now
-            var request = new LoginAndSendNewFaxMessageRequest();
-            request.Body = body;
+            var request = new LoginAndSendNewFaxMessageRequest {Body = body};
             var svc = new FAXCOMServiceSoapClient();
             var response = svc.LoginAndSendNewFaxMessage(request);
             Console.WriteLine(response.Body.LoginAndSendNewFaxMessageResult.Detail);
@@ -68,20 +68,20 @@ namespace TestFaxcom
             var request = new GetMessageStatusesCountRequest();
             var count = svc.GetMessageStatusesCount(request);
             Console.WriteLine(count.GetMessageStatusesCountResult);
-            if (count.GetMessageStatusesCountResult > 0)
+            if (count.GetMessageStatusesCountResult <= 0) return;
+            var req = new GetMessageStatusesRequest
             {
-                var req = new GetMessageStatusesRequest();
-                req.Body = new GetMessageStatusesRequestBody()
+                Body = new GetMessageStatusesRequestBody()
                 {
                     sortColumn = 1,
-                    ascending = true
-                };
-                var messages = svc.GetMessageStatuses(req);
-                for (var i = 0; i < count.GetMessageStatusesCountResult; ++i)
-                {
-                    var msg = messages.Body.GetMessageStatusesResult[i];
-                    Console.WriteLine("{0} {1} {2}", msg.IDTag, msg.StatusName, msg.StatusText);
+                    @ascending = true
                 }
+            };
+            var messages = svc.GetMessageStatuses(req);
+            for (var i = 0; i < count.GetMessageStatusesCountResult; ++i)
+            {
+                var msg = messages.Body.GetMessageStatusesResult[i];
+                Console.WriteLine("{0} {1} {2}", msg.IDTag, msg.StatusName, msg.StatusText);
             }
         }
 
@@ -107,12 +107,11 @@ namespace TestFaxcom
 
         private SendFaxRequest GetSendFaxRequest()
         {
-            var result = new SendFaxRequest();
-            result.Body = new SendFaxRequestBody();
+            var result = new SendFaxRequest {Body = new SendFaxRequestBody()};
             return result;
         }
 
-        private AddAttachmentRequest GetAddAttachmentRequest()
+        private static AddAttachmentRequest GetAddAttachmentRequest()
         {
             var results = new AddAttachmentRequest();
             var attachment = GetTestAttachment();
@@ -124,16 +123,16 @@ namespace TestFaxcom
             return results;
         }
 
-        private Attachment[] GetAttachments()
+        private static Attachment[] GetAttachments()
         {
-            return new Attachment[] { GetTestAttachment() };
+            return new[] { GetTestAttachment() };
         }
 
-        private Attachment GetTestAttachment()
+        private static Attachment GetTestAttachment()
         {
             var attachment = new Attachment();
-            var fs = new FileStream(filespec, FileMode.Open, FileAccess.Read);
-            byte[] fileContents = new byte[fs.Length];
+            var fs = new FileStream(Filespec, FileMode.Open, FileAccess.Read);
+            var fileContents = new byte[fs.Length];
             Assert.IsFalse(fs.Length > int.MaxValue);
             fs.Read(fileContents, 0, (int)fs.Length);
             attachment.FileContent = fileContents;
@@ -143,57 +142,63 @@ namespace TestFaxcom
 
         private NewFaxMessageRequest GetNewFaxRequest()
         {
-            var result = new NewFaxMessageRequest();
-            result.Body = new NewFaxMessageRequestBody
+            var result = new NewFaxMessageRequest
             {
-                recipientName = "Test Fax Recipient",
-                priority = 2,
-                sendTime = "0.0",
-                resolution = 1,
-                subject = "IFN Test",
-                memo = "test MEMO",
-                senderName = "Shoemaker",
-                senderFax = "6178862064",
-                recipientCompany = "IFN",
-                recipientFax = "7812465325"
+                Body = new NewFaxMessageRequestBody
+                {
+                    recipientName = "Test Fax Recipient",
+                    priority = 2,
+                    sendTime = "0.0",
+                    resolution = 1,
+                    subject = "IFN Test",
+                    memo = "test MEMO",
+                    senderName = "Shoemaker",
+                    senderFax = "6178862064",
+                    recipientCompany = "IFN",
+                    recipientFax = "7812465325"
+                }
             };
             return result;
         }
 
-        private SetSenderInformationRequest SetSenderInfo()
+        private static SetSenderInformationRequest SetSenderInfo()
         {
-            var sender = new SetSenderInformationRequest();
-            sender.Body = new SetSenderInformationRequestBody
+            var sender = new SetSenderInformationRequest
             {
-                name = "John Gwynn",
-                faxNumber = "7812465325",
-                company = "Sedgwick CMS",
-                email = "johngwynn@sedgwickcms.com",
-                voiceNumber = "6172753024"
+                Body = new SetSenderInformationRequestBody
+                {
+                    name = "John Gwynn",
+                    faxNumber = "7812465325",
+                    company = "Sedgwick CMS",
+                    email = "johngwynn@sedgwickcms.com",
+                    voiceNumber = "6172753024"
+                }
             };
             return sender;
         }
 
-        private SetLegacyModeRequest GetLegacyModeRequest()
+        private static SetLegacyModeRequest GetLegacyModeRequest()
         {
-            var legacyRequest = new SetLegacyModeRequest();
-            legacyRequest.Body = new SetLegacyModeRequestBody();
-            legacyRequest.Body.legacyMode = 1;
+            var legacyRequest = new SetLegacyModeRequest {Body = new SetLegacyModeRequestBody {legacyMode = 1}};
             return legacyRequest;
 
         }
 
-        private LogOnRequest GetLogonRequest()
+        private static LogOnRequest GetLogonRequest()
         {
-            var logonRequest = new LogOnRequest();
-            logonRequest.Body = new LogOnRequestBody();
-            logonRequest.Body.userName = "Administrator";
-            logonRequest.Body.faxQueue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ";
-            logonRequest.Body.userType = 2;
+            var logonRequest = new LogOnRequest
+            {
+                Body = new LogOnRequestBody
+                {
+                    userName = "Administrator",
+                    faxQueue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ",
+                    userType = 2
+                }
+            };
             return logonRequest;
         }
 
-        private FAXCOMServiceSoapClient CreateAndLogin()
+        private static FAXCOMServiceSoapClient CreateAndLogin()
         {
             var svc = new FAXCOMServiceSoapClient();
             

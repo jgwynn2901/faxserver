@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using FnsUtility;
+using Constants = FnsInterop.Constants;
 
 namespace FaxcomManager
 {
@@ -11,23 +13,40 @@ namespace FaxcomManager
     [Guid("5C8EE9A3-39C9-457A-BB14-EC117D8A465B")]
     public class Server : IDisposable
     {
+        // Call Object will have filename to process here:
+        public const string ImageFileAttribute = "IMAGE_FILENAME";
+        private const string ErrorStringAttribute = "ERRORSTRING";
+        private const string DestinationStringAttribute = "DESTINATION_STRING";
+        // N.B. these should be in the config file and NOT hard coded.
+        private const string Queue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ";
+        private const string Username = "Administrator";
+
         /// <summary>
         /// Processes the call.
         /// </summary>
         /// <param name="call">The call.</param>
         /// <returns></returns>
-        long ProcessCall( CALLOBJECTLib.Call call)
+        public long ProcessCall( CALLOBJECTLib.Call call)
         {
-            return FnsInterop.Constants.S_OK;
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.LogError(ex, new CallingMethod());
+                call.SetValue(ErrorStringAttribute, ex.Message);
+            }
+            return Constants.S_OK;
         }
 
         /// <summary>
         /// Processes the end of OPM job with cleanup here.
         /// </summary>
         /// <returns></returns>
-        long ProcessEnd()
+        public long ProcessEnd()
         {
-            return FnsInterop.Constants.S_OK;
+            return Constants.S_OK;
         }
 
         #region IDisposable Support
