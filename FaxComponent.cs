@@ -4,7 +4,7 @@ using FaxServer.Model;
 
 namespace FaxServer
 {
-    public class FaxComponent
+    public class FaxComponent : IFaxComponent
     {
         private readonly string _fileName;
         
@@ -13,7 +13,7 @@ namespace FaxServer
             _fileName = fileName;
         }
 
-       public LoginAndSendNewFaxMessageResponse SendFax(FaxQueue q, Sender sender, Recipient recipient)
+       public virtual LoginAndSendNewFaxMessageResponse SendFax(FaxQueue q, Sender sender, Recipient recipient)
         {
             var body = new LoginAndSendNewFaxMessageRequestBody
             {

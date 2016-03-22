@@ -16,18 +16,26 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>FnsStrongNameKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FnsComposite">
@@ -58,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FaxComponent.cs" />
+    <Compile Include="FaxComponentProxy.cs" />
+    <Compile Include="IFaxComponent.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\FaxQueue.cs" />
     <Compile Include="Model\Parameter.cs" />
@@ -78,6 +88,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FnsStrongNameKey.snk" />
     <None Include="Service References\FaxcomService\FAXCOMService.wsdl">
       <SubType>Designer</SubType>
     </None>

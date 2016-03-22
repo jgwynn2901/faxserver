@@ -3,6 +3,7 @@ using FaxServer.FaxcomService;
 using System;
 using System.IO;
 using FaxServer;
+using FaxServer.Model;
 
 namespace TestFaxcom
 {
@@ -10,6 +11,18 @@ namespace TestFaxcom
     public class TestFaxcomService
     {
         private const string Filespec = @"C:\src\fnsnet\WALOPM02SEDPP-2197.tif";
+        private FaxQueue _queue;
+        private Sender _sender;
+        private Recipient _recipient;
+
+        [TestInitialize]
+        public void Startup()
+        {
+            _queue = new FaxQueue { Queue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ", Username = "Administrator" };
+            _sender = new Sender { Company = "IFN", Email = "gwynnj@us.innovation-group.com", FaxNumber = "6175554123", Name = "Shoemaker"};
+            _recipient = new Recipient { Account = "QBE", Company = "Sedgwick", FaxNumber = "6178862064", Name = "Fred Flintstone"};
+
+        }
 
         [TestMethod]
         public void TestFaxcomLogin()
@@ -25,8 +38,9 @@ namespace TestFaxcom
         [TestMethod]
         public void TestFaxComponent()
         {
-            var fax = new FaxComponent(Filespec);
-            //Console.WriteLine(fax.SendFax());
+            var faxResult = new FaxComponentProxy(Filespec).SendFax(_queue, _sender, _recipient).Body.LoginAndSendNewFaxMessageResult.Data;
+            Assert.IsTrue(faxResult == "Message Sent!");
+            Console.WriteLine(faxResult);
         }
 
         [TestMethod]
