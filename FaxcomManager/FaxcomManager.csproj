@@ -77,6 +77,8 @@
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
     <Compile Include="IServer.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="OpmComponentBase.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
