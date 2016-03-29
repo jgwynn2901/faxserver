@@ -41,7 +41,7 @@ namespace FaxcomManager
                     FaxNumber = call.GetValue("CLAIM:ACCOUNT:PHONE_FAX"),
                     Name = call.GetValue("CLAIM:INSURED:NAME")
                 };
-                Assert.Test(sender.IsValid, sender.LastError);
+                Assert.Test(sender.Validate().IsValid, sender.LastError);
                 var recipient = new Recipient
                 {
                     Account = call.GetValue("CALL_ID"),
@@ -49,13 +49,13 @@ namespace FaxcomManager
                     Company = call.GetValue("CLAIM:INSURED:NAME"),
                     Name = call.GetValue("CLAIM:RISK_LOCATION:NAME")
                 };
-                Assert.Test(recipient.IsValid, recipient.LastError);
+                Assert.Test(recipient.Validate().IsValid, recipient.LastError);
                 var queue = new FaxQueue
                 {
                     Queue = ApplicationConfiguration.Instance.FaxQueue,
                     Username = ApplicationConfiguration.Instance.FaxUser
                 };
-                Assert.Test(queue.IsValid, queue.LastError);
+                Assert.Test(queue.Validate().IsValid, queue.LastError);
                 IFaxComponent worker = new FaxComponentProxy(filename);
                 var results = worker.SendFax(queue, sender, recipient).Body.LoginAndSendNewFaxMessageResult;
                 call.SetValue(FaxJobId, results.Data);
