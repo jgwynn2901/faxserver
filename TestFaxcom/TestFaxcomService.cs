@@ -20,7 +20,7 @@ namespace TestFaxcom
         {
             _queue = new FaxQueue { Queue = @"\\ltr1fx03\FaxcomQ_SMTPOPMEDIFaxQ", Username = "Administrator" };
             _sender = new Sender { Company = "IFN", Email = "gwynnj@us.innovation-group.com", FaxNumber = "6175554123", Name = "Shoemaker"};
-            _recipient = new Recipient { Account = "QBE", Company = "Sedgwick", FaxNumber = "6178862064", Name = "Fred Flintstone"};
+            _recipient = new Recipient { Account = "QBE", Company = "Sedgwick", FaxNumber = "7812465325", Name = "Fred Flintstone"};
 
         }
 
@@ -100,6 +100,30 @@ namespace TestFaxcom
         }
 
         [TestMethod]
+        public void TestResult()
+        {
+            var svc = CreateAndLogin();
+            Assert.IsNotNull(svc);
+            var request = GetMessageStatus("LTR1FX03_WS_1605171947050005");
+            var response = svc.GetMessageStatusByUniqueID(request);
+            Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.StatusText);
+            Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.PagesTransmitted.ToString());
+            Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.RecipientName);
+        }
+
+        private static GetMessageStatusByUniqueIDRequest GetMessageStatus(string key)
+        {
+            var result = new GetMessageStatusByUniqueIDRequest
+            {
+                Body = new GetMessageStatusByUniqueIDRequestBody
+                {
+                    uniqueID = key
+                }
+            };
+            return result;
+        }
+
+        [TestMethod]
         public void TestSendFax()
         {
             var svc = CreateAndLogin();
@@ -154,7 +178,7 @@ namespace TestFaxcom
             return attachment;
         }
 
-        private NewFaxMessageRequest GetNewFaxRequest()
+        private static NewFaxMessageRequest GetNewFaxRequest()
         {
             var result = new NewFaxMessageRequest
             {
@@ -169,7 +193,8 @@ namespace TestFaxcom
                     senderName = "Shoemaker",
                     senderFax = "6178862064",
                     recipientCompany = "IFN",
-                    recipientFax = "7812465325"
+                    //recipientFax = "7812465325"
+                    recipientFax = "8668538459"
                 }
             };
             return result;
@@ -211,6 +236,8 @@ namespace TestFaxcom
             };
             return logonRequest;
         }
+
+       
 
         private static FAXCOMServiceSoapClient CreateAndLogin()
         {

@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using FaxServer.FaxcomService;
 using FaxServer.Model;
+using FnsUtility;
 
 namespace FaxServer
 {
@@ -13,44 +15,112 @@ namespace FaxServer
             _fileName = fileName;
         }
 
-       public virtual LoginAndSendNewFaxMessageResponse SendFax(FaxQueue q, Sender sender, Recipient recipient)
+       public SendFaxResponse SendFax(FaxQueue q, Sender sender, Recipient recipient)
         {
-            var body = new LoginAndSendNewFaxMessageRequestBody
+            var svc = CreateAndLogin(q);
+            Assert.IsNotNull(svc, "SendFax Service is null!");
+            var sndr = svc.SetSenderInformation(SetSenderInfo(sender));
+            Assert.IsTrue(sndr.Body.SetSenderInformationResult.Result, sndr.Body.SetSenderInformationResult.Detail);
+            var rm = svc.NewFaxMessage(GetNewFaxRequest(sender, recipient));
+            Assert.IsTrue(rm.Body.NewFaxMessageResult.Result, rm.Body.NewFaxMessageResult.Detail);
+            var rs = svc.AddAttachment(GetAddAttachmentRequest());
+            Assert.IsTrue(rs.Body.AddAttachmentResult.Result);
+            var result = svc.SendFax(GetSendFaxRequest());
+            return result;
+        }
+        
+        private AddAttachmentRequest GetAddAttachmentRequest()
+        {
+            var results = new AddAttachmentRequest();
+            var attachment = GetTestAttachment();
+            results.Body = new AddAttachmentRequestBody
             {
-                faxQueue = q.Queue,
-                userName = q.Username,
-                userType = 2,
-                senderInfo = new SenderInfo()
-                {
-                    Name = sender.Name,
-                    FaxNumber = sender.FaxNumber,
-                    Email = sender.Email,
-                    Company = sender.Company
-                }
+                attachment = attachment.FileContent,
+                attname = attachment.FileName
             };
-            var recip = new RecipientInfo
-            {
-                Name = recipient.Name,
-                Account = recipient.Account,
-                Company = recipient.Company,
-                FaxNumber = recipient.FaxNumber
-            };
-            body.recipients = new[] { recip};
+            return results;
+        }
 
+        private Attachment GetTestAttachment()
+        {
             var attachment = new Attachment();
             var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read);
             var fileContents = new byte[fs.Length];
-            //Assert.IsFalse(fs.Length > int.MaxValue);
             fs.Read(fileContents, 0, (int)fs.Length);
             attachment.FileContent = fileContents;
-            attachment.FileName = _fileName;
+            attachment.FileName = Path.GetFileName(_fileName);
+            return attachment;
+        }
 
-            body.attachments = new[] { attachment };
+        private static SendFaxRequest GetSendFaxRequest()
+        {
+            var result = new SendFaxRequest { Body = new SendFaxRequestBody() };
+            return result;
+        }
 
-            // put it all together now
-            var request = new LoginAndSendNewFaxMessageRequest { Body = body };
+        private static NewFaxMessageRequest GetNewFaxRequest(Entity sender, Recipient recipient)
+        {
+            var result = new NewFaxMessageRequest
+            {
+                Body = new NewFaxMessageRequestBody
+                {
+                    recipientName = recipient.Name,
+                    priority = 2,
+                    sendTime = "0.0",
+                    resolution = 1,
+                    subject = recipient.Subject,
+                    senderName = sender.Name,
+                    senderFax = sender.FaxNumber,
+                    recipientCompany = recipient.Company,
+                    recipientFax = recipient.FaxNumber
+                }
+            };
+            return result;
+        }
+
+        private static SetSenderInformationRequest SetSenderInfo(Sender sender)
+        {
+           return new SetSenderInformationRequest
+            {
+                Body = new SetSenderInformationRequestBody
+                {
+                    name = sender.Name,
+                    faxNumber = sender.FaxNumber,
+                    company = sender.Company,
+                    email = sender.Email,
+                    voiceNumber = "6178862000"
+                }
+            };
+        }
+
+        private static FAXCOMServiceSoapClient CreateAndLogin(FaxQueue q)
+        {
             var svc = new FAXCOMServiceSoapClient();
-           return svc.LoginAndSendNewFaxMessage(request);
+            svc.SetLegacyMode(GetLegacyModeRequest());
+            var response = svc.LogOn(GetLogonRequest(q));
+            Assert.IsTrue(response.Body.LogOnResult.Result);
+            Console.WriteLine(response.Body.LogOnResult.Detail);
+            return svc;
+        }
+
+        private static SetLegacyModeRequest GetLegacyModeRequest()
+        {
+            var legacyRequest = new SetLegacyModeRequest { Body = new SetLegacyModeRequestBody { legacyMode = 1 } };
+            return legacyRequest;
+        }
+
+        private static LogOnRequest GetLogonRequest(FaxQueue q)
+        {
+            var logonRequest = new LogOnRequest
+            {
+                Body = new LogOnRequestBody
+                {
+                    userName = q.Username,
+                    faxQueue = q.Queue,
+                    userType = 2
+                }
+            };
+            return logonRequest;
         }
     }
 }

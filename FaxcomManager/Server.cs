@@ -36,9 +36,9 @@ namespace FaxcomManager
                 Assert.Test(!string.IsNullOrEmpty(filename),"Missing File!");
                 var sender = new Sender
                 {
-                    Email = "test@firstnotice.com",
+                    Email = "test@sedgwickcms.com",
                     Company = call.GetValue("CLAIM:ACCOUNT:NAME"),
-                    FaxNumber = call.GetValue("CLAIM:ACCOUNT:PHONE_FAX"),
+                    FaxNumber = "6178862045",
                     Name = call.GetValue("CLAIM:INSURED:NAME")
                 };
                 Assert.Test(sender.Validate().IsValid, sender.LastError);
@@ -56,7 +56,7 @@ namespace FaxcomManager
                     Username = ApplicationConfiguration.Instance.FaxUser
                 };
                 Assert.Test(queue.Validate().IsValid, queue.LastError);
-                IFaxComponent worker = new FaxComponentProxy(filename);
+                IFaxComponent worker = new FaxComponent(filename);
                 var results = worker.SendFax(queue, sender, recipient).Body.LoginAndSendNewFaxMessageResult;
                 call.SetValue(FaxJobId, results.Data);
                 call.SetValue(ErrorStringAttribute, results.Detail);
