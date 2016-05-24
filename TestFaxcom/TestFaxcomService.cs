@@ -38,7 +38,7 @@ namespace TestFaxcom
         [TestMethod]
         public void TestFaxComponent()
         {
-            var faxResult = new FaxComponentProxy(Filespec).SendFax(_queue, _sender, _recipient).Body.LoginAndSendNewFaxMessageResult.Data;
+            var faxResult = new FaxComponentProxy(Filespec).SendFax(_queue, _sender, _recipient).Body.SendFaxResult.Data;
             Assert.IsTrue(faxResult == "Message Sent!");
             Console.WriteLine(faxResult);
         }
@@ -104,7 +104,7 @@ namespace TestFaxcom
         {
             var svc = CreateAndLogin();
             Assert.IsNotNull(svc);
-            var request = GetMessageStatus("LTR1FX03_WS_1605171947050005");
+            var request = GetMessageStatus("LTR1FX03_WS_1605232003490006");
             var response = svc.GetMessageStatusByUniqueID(request);
             Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.StatusText);
             Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.PagesTransmitted.ToString());
@@ -193,8 +193,8 @@ namespace TestFaxcom
                     senderName = "Shoemaker",
                     senderFax = "6178862064",
                     recipientCompany = "IFN",
-                    //recipientFax = "7812465325"
-                    recipientFax = "8668538459"
+                    recipientFax = "5017475674"
+                    //recipientFax = "8668538459"
                 }
             };
             return result;

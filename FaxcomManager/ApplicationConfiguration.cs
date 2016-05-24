@@ -11,6 +11,8 @@ namespace FaxcomManager
         {
             FaxQueue = ConfigurationReader.GetAppConfigValue("FaxQueue");
             FaxUser = ConfigurationReader.GetAppConfigValue("FaxUser");
+            var timeout = ConfigurationReader.GetAppConfigValue("FaxManagerTimeout");
+            FaxManagerTimeout = string.IsNullOrEmpty(timeout) ? 22000 : int.Parse(timeout);
         }
 
         /// <summary>
@@ -21,5 +23,6 @@ namespace FaxcomManager
 
         public string FaxQueue { get; private set; }
         public string FaxUser { get; private set; }
+        public int FaxManagerTimeout { get; private set; }
     }
 }

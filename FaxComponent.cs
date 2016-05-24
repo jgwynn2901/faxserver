@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using FaxServer.FaxcomService;
 using FaxServer.Model;
 using FnsUtility;
@@ -28,6 +27,15 @@ namespace FaxServer
             var result = svc.SendFax(GetSendFaxRequest());
             return result;
         }
+
+        public static GetMessageStatusByUniqueIDResponse GetFaxResponse(FaxQueue q, string jobId)
+        {
+            var svc = CreateAndLogin(q);
+            Assert.IsNotNull(svc);
+            var request = GetMessageStatus(jobId);
+            var response = svc.GetMessageStatusByUniqueID(request);
+            return response;
+        }
         
         private AddAttachmentRequest GetAddAttachmentRequest()
         {
@@ -39,6 +47,17 @@ namespace FaxServer
                 attname = attachment.FileName
             };
             return results;
+        }
+        private static GetMessageStatusByUniqueIDRequest GetMessageStatus(string key)
+        {
+            var result = new GetMessageStatusByUniqueIDRequest
+            {
+                Body = new GetMessageStatusByUniqueIDRequestBody
+                {
+                    uniqueID = key
+                }
+            };
+            return result;
         }
 
         private Attachment GetTestAttachment()
@@ -93,13 +112,13 @@ namespace FaxServer
             };
         }
 
-        private static FAXCOMServiceSoapClient CreateAndLogin(FaxQueue q)
+        public static FAXCOMServiceSoapClient CreateAndLogin(FaxQueue q)
         {
             var svc = new FAXCOMServiceSoapClient();
             svc.SetLegacyMode(GetLegacyModeRequest());
             var response = svc.LogOn(GetLogonRequest(q));
             Assert.IsTrue(response.Body.LogOnResult.Result);
-            Console.WriteLine(response.Body.LogOnResult.Detail);
+            ErrorLog.DebugLog(response.Body.LogOnResult.Detail, "CreateAndLogin");
             return svc;
         }
 

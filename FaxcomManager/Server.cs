@@ -34,6 +34,7 @@ namespace FaxcomManager
                 Assert.Test(!string.IsNullOrEmpty(faxNumber), "Missing Destination: (Fax #)");
                 var filename = call.GetValue(ImageFileAttribute);
                 Assert.Test(!string.IsNullOrEmpty(filename),"Missing File!");
+                call.SetValue(ErrorStringAttribute, "");
                 var sender = new Sender
                 {
                     Email = "test@sedgwickcms.com",
@@ -57,16 +58,15 @@ namespace FaxcomManager
                 };
                 Assert.Test(queue.Validate().IsValid, queue.LastError);
                 IFaxComponent worker = new FaxComponent(filename);
-                var results = worker.SendFax(queue, sender, recipient).Body.LoginAndSendNewFaxMessageResult;
+                var results = worker.SendFax(queue, sender, recipient).Body.SendFaxResult;
                 call.SetValue(FaxJobId, results.Data);
-                call.SetValue(ErrorStringAttribute, results.Detail);
+                call.SetValue("FAX_SUBMISSION_DETAIL", results.Detail);
 
             }
             catch (Exception ex)
             {
                 ErrorLog.LogError(ex, new CallingMethod());
                 call.SetValue(ErrorStringAttribute, ex.Message);
-                return Constants.E_FAIL;
             }
             return Constants.S_OK;
         }
