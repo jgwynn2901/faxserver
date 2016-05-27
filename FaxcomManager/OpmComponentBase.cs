@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using CALLOBJECTLib;
 using FnsInterop;
 
 namespace FaxcomManager
 {
+    [ComVisible(false)]
     public class OpmComponentBase : IOpmComponent
     {
         public virtual long ProcessCall(Call call)
