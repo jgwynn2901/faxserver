@@ -104,7 +104,7 @@ namespace TestFaxcom
         {
             var svc = CreateAndLogin();
             Assert.IsNotNull(svc);
-            var request = GetMessageStatus("LTR1FX03_WS_1605232003490006");
+            var request = GetMessageStatus("LTR1FX03_WS_1606081823220004");
             var response = svc.GetMessageStatusByUniqueID(request);
             Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.StatusText);
             Console.WriteLine(response.Body.GetMessageStatusByUniqueIDResult.PagesTransmitted.ToString());

@@ -38,7 +38,7 @@ namespace FaxcomManager
                 var sender = new Sender
                 {
                     Email = "test@sedgwickcms.com",
-                    Company = call.GetValue("CLAIM:ACCOUNT:NAME"),
+                    Company = GetSenderCompany(call),
                     FaxNumber = "6178862045",
                     Name = call.GetValue("CLAIM:INSURED:NAME")
                 };
@@ -69,6 +69,12 @@ namespace FaxcomManager
                 call.SetValue(ErrorStringAttribute, ex.Message);
             }
             return Constants.S_OK;
+        }
+
+        private string GetSenderCompany(CALLOBJECTLib.Call call)
+        {
+            var results = call.GetValue("CLAIM:ACCOUNT:NAME");
+            return !string.IsNullOrEmpty(results) ? results : "Selective";
         }
     }
 }

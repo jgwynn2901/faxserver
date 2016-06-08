@@ -14,11 +14,7 @@
                 LastError = "Name is missing.";
                 return this;
             }
-            if (string.IsNullOrEmpty(Company))
-            {
-                LastError = "Company is missing.";
-                return this;
-            }
+            
             if (string.IsNullOrEmpty(FaxNumber))
             {
                 LastError = "FaxNumber is missing.";

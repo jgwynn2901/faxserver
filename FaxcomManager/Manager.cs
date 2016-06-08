@@ -16,6 +16,7 @@ namespace FaxcomManager
         {
             try
             {
+                const string faxStatusText = "FAX_STATUS_TEXT";
                 var jobId = call.GetValue(Server.FaxJobId);
 
                 call.SetValue(Server.ErrorStringAttribute, "");
@@ -34,10 +35,11 @@ namespace FaxcomManager
 
                     if (response.Body.GetMessageStatusByUniqueIDResult == null) continue;
                     call.SetValue("FAX_STATUS_NAME", Value: response.Body.GetMessageStatusByUniqueIDResult.StatusName);
-                    call.SetValue("FAX_STATUS_TEXT", Value: response.Body.GetMessageStatusByUniqueIDResult.StatusText);
+                    call.SetValue(faxStatusText, Value: response.Body.GetMessageStatusByUniqueIDResult.StatusText);
                     break;
                 }
-                Assert.IsTrue(call.GetValue("FAX_STATUS_NAME").ToLower() == "ok", "GetMessageStatusByUniqueIDResult is null or not ok.");
+                Assert.IsTrue(call.GetValue("FAX_STATUS_NAME").ToLower() == "ok",
+                    $"Result is null or not ok for {jobId} {call.GetValue(faxStatusText)}");
             }
             catch (Exception ex)
             {
