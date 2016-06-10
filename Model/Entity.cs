@@ -9,17 +9,17 @@
         public override Parameter Validate()
         {
             base.Validate();
-            if (string.IsNullOrEmpty(Name))
-            {
-                LastError = "Name is missing.";
-                return this;
-            }
+            //if (string.IsNullOrEmpty(Name))
+            //{
+            //    LastError = "Name is missing.";
+            //    return this;
+            //}
             
-            if (string.IsNullOrEmpty(FaxNumber))
-            {
-                LastError = "FaxNumber is missing.";
-                return this;
-            }
+            //if (string.IsNullOrEmpty(FaxNumber))
+            //{
+            //    LastError = "FaxNumber is missing.";
+            //    return this;
+            //}
 
             IsValid = true;
             return this;

@@ -38,8 +38,11 @@ namespace FaxcomManager
                     call.SetValue(faxStatusText, Value: response.Body.GetMessageStatusByUniqueIDResult.StatusText);
                     break;
                 }
-                Assert.IsTrue(call.GetValue("FAX_STATUS_NAME").ToLower() == "ok",
-                    $"Result is null or not ok for {jobId} {call.GetValue(faxStatusText)}");
+                if (call.GetValue("FAX_STATUS_NAME").ToLower() != "ok")
+                {
+                    throw new ApplicationException(
+                        $"Result is null or not ok for {jobId} {call.GetValue(faxStatusText)}");
+                }
             }
             catch (Exception ex)
             {
